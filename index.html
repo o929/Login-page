@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login with javascript</title>
+  <link rel="stylesheet" href="login.javascript.css">
+</head>
+<style>
+  .error-msg {
+    color: #f06272;
+  }
+</style>
+
+<body>
+  <div class="wrapper">
+    <h1>Signup</h1>
+    <form id="form">
+      <p class="error-msg" id="firstnameerror-msg"></p>
+
+      <div>
+        <label for="firstname-input">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="white">
+            <path
+              d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Z" />
+          </svg>
+        </label>
+        <input type="text" name="firstname" id="firstname-input" placeholder="First name">
+      </div>
+      <p class="error-msg" id="emailerror-msg"></p>
+      <div>
+        <label for="email-input">
+          <span>@</span>
+        </label>
+        <input type="email" id="email-input" placeholder="Email">
+      </div>
+      <p class="error-msg" id="passworderror-msg"></p>
+      <div>
+        <label for="password-input">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="white">
+            <path
+              d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm240-200q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80Z" />
+          </svg>
+        </label>
+        <input type="password" name="password" id="password-input" placeholder="Password">
+      </div>
+      <p class="error-msg" id="repeatpassworderror-msg"> </p>
+      <div>
+        <label for="repeat-password-input">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="white">
+            <path
+              d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm240-200q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80Z" />
+          </svg>
+        </label>
+        <input type="password" name="repeat-password" id="repeat-password-input" placeholder="Repeat password">
+      </div>
+      <button id="button" type="submit">Sign up</button>
+    </form>
+    <p>Already hava account ? <a href="login.html">login</a></p>
+  </div>
+  <script>
+
+    // Ensure the DOM is fully loaded before running the script
+    document.addEventListener('DOMContentLoaded', () => {
+      // Select the form and all input elements inside it
+      let form = document.getElementById("form");
+      let btn = document.getElementById("button");
+      let firstName = document.getElementById("firstname-input");
+      let email = document.getElementById("email-input");
+      let password = document.getElementById("password-input");
+      let reapeatPassword = document.getElementById("repeat-password-input");
+      let errorMsg = document.getElementById("errorMsg");
+
+
+      let FerrorMsg = document.getElementById("firstnameerror-msg");
+      let EerrorMsg = document.getElementById("emailerror-msg");
+      let PerrorMsg = document.getElementById("passworderror-msg");
+      let RPerrorMsg = document.getElementById("repeatpassworderror-msg")
+
+
+      // When the form is submitted, validate each input 
+      form.addEventListener('submit', (e) => {
+        let hasEmptyFields = false;
+        // let errorMsg = []
+
+
+        if (firstName.value.trim() === '') {
+          // Add the 'inncorect' class if empty
+          FerrorMsg.innerHTML = "Password is required ."
+          firstName.parentElement.classList.add('inncorect');
+          hasEmptyFields = true;
+          btn.style.cursor = "not-allowed"
+        };
+        if (email.value.trim() === '') {
+          // Add the 'inncorect' class if empty
+          EerrorMsg.innerHTML = "Email is required"
+          email.parentElement.classList.add('inncorect');
+          hasEmptyFields = true;
+        };
+
+        if (password.value.trim() === '') {
+          // Add the 'inncorect' class if empty
+          PerrorMsg.innerHTML = "Password is required"
+          password.parentElement.classList.add('inncorect');
+          hasEmptyFields = true;
+        };
+
+        if (reapeatPassword.value.trim() !== password.value) {
+          // Add the 'inncorect' class if empty
+          RPerrorMsg.innerHTML = "The password doesn't match"
+          reapeatPassword.parentElement.classList.add('inncorect');
+          hasEmptyFields = true;
+        };
+
+
+        // Prevent form submission if there are empty fields
+        if (hasEmptyFields) {
+          e.preventDefault();
+
+        }
+      });
+
+      // Listen for input events on each field to remove the 'inncorect' class once the user starts typing
+
+      firstName.addEventListener('input', () => {
+        if (firstName.value.trim() !== '') {
+          FerrorMsg.innerHTML = ""
+          firstName.parentElement.classList.remove('inncorect');
+        }
+      });
+      email.addEventListener('input', () => {
+        if (email.value.trim() !== '') {
+          EerrorMsg.innerHTML = ""
+          email.parentElement.classList.remove('inncorect');
+        }
+      });
+      password.addEventListener('input', () => {
+        if (password.value.trim() !== '') {
+          PerrorMsg.innerHTML = ""
+          password.parentElement.classList.remove('inncorect');
+        }
+      });
+      reapeatPassword.addEventListener('input', () => {
+        if (reapeatPassword.value.trim() !== '') {
+          RPerrorMsg.innerHTML = ""
+          reapeatPassword.parentElement.classList.remove('inncorect');
+        }
+      });
+    });
+
+
+  </script>
+</body>
+
+</html>
